@@ -7,3 +7,9 @@ class VideoSchema(Schema):
     publish_datetime = fields.DateTime(attribute="publish_datetime")
     thumbnail = fields.String(attribute="thumbnail")
     description = fields.String(attribute="description")
+
+class VideoResponseSchema(Schema):
+    data = fields.Nested(VideoSchema,many=True)
+    page = fields.Number(attribute='page')
+    per_page = fields.Number(attribute='per_page')
+    total = fields.Number(attribute='total')

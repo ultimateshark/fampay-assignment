@@ -8,13 +8,20 @@ from sqlalchemy import or_
 
 class VideoService():
     @staticmethod
-    def get_all(q='') -> List[Video]:
-        return Video.query.filter(
+    def get_all(q='',page=0,per_page=15) -> List[Video]:
+        query = Video.query.filter(
             or_(
                 Video.title.like('%' + q + '%'),
                 Video.description.like('%' + q + '%')
             )
-        ).all()
+        ).paginate(page, per_page, False)
+        total = query.total
+        return {
+            'data':query.items,
+            'page':page,
+            'per_page':per_page,
+            'total':total
+        }
 
     @staticmethod
     def get_by_id(video_id: int) -> Video:
