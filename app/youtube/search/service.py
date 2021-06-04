@@ -3,13 +3,13 @@ from app import db
 from typing import List
 from .model import Video
 from .interface import VideoInterface
-from sqlalchemy import or_
+from sqlalchemy import or_,desc
 
 
 class VideoService():
     @staticmethod
     def get_all(q='',page=0,per_page=15) -> List[Video]:
-        query = Video.query.filter(
+        query = Video.query.order_by(desc(Video.publish_datetime)).filter(
             or_(
                 Video.title.like('%' + q + '%'),
                 Video.description.like('%' + q + '%')
@@ -24,8 +24,13 @@ class VideoService():
         }
 
     @staticmethod
-    def get_by_id(video_id: int) -> Video:
-        return Video.query.get(video_id)
+    def get_by_id(video_id: str) -> Video:
+        return Video.query.filter(Video.video_id == video_id).first()
+
+    @staticmethod
+    def exists_by_id(video_id: str) -> Video:
+        video = Video.query.filter(Video.video_id == video_id).first()
+        return True if video else False
 
     @staticmethod
     def update(Video: Video, Video_change_updates: VideoInterface) -> Video:
@@ -34,7 +39,7 @@ class VideoService():
         return Video
 
     @staticmethod
-    def delete_by_id(video_id: int) -> List[int]:
+    def delete_by_id(video_id: str) -> List[int]:
         Video = Video.query.filter(Video.video_id == video_id).first()
         if not Video:
             return []

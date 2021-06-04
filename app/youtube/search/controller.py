@@ -15,12 +15,17 @@ class VideoResource(Resource):
     @responds(schema=VideoResponseSchema)
     def get(self,) -> List[Video]:
         args = request.args
-        q = args.get('q') if args.get('q') else ''
+        q = ''
         page = int(args.get('page')) if args.get('page') else 0
         per_page = int(args.get('per_page')) if args.get('per_page') else 15
         return VideoService.get_all(q,page,per_page)
 
-    @accepts(schema=VideoSchema, api=api)
-    @responds(schema=VideoSchema)
-    def post(self) -> Video:
-        return VideoService.create(request.parsed_obj)
+@api.route("/search")
+class VideoResource(Resource):
+    @responds(schema=VideoResponseSchema)
+    def get(self,) -> List[Video]:
+        args = request.args
+        q = args.get('q') if args.get('q') else ''
+        page = int(args.get('page')) if args.get('page') else 0
+        per_page = int(args.get('per_page')) if args.get('per_page') else 15
+        return VideoService.get_all(q,page,per_page)
