@@ -8,7 +8,7 @@ class Video(db.Model):
     __tablename__ = "videos"
 
     id = Column(Integer(),primary_key=True,autoincrement=True)
-    video_id = Column(Integer())
+    video_id = Column(String())
     title = Column(String(255),index=True)
     description = Column(Text())
     publish_datetime = Column(DateTime())

@@ -3,7 +3,7 @@ from mypy_extensions import TypedDict
 
 
 class VideoInterface(TypedDict, total=False):
-    video_id: int
+    video_id: str
     title: str
     description: str
     publish_datetime: datetime
