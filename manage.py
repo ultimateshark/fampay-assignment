@@ -3,7 +3,7 @@ from flask_script import Manager
 
 from app import create_app, db
 
-env = os.getenv("FLASK_ENV") or "dev"
+env = os.getenv("FLASK_ENV") or "prod"
 print(f"Active environment: * {env} *")
 app = create_app(env)
 

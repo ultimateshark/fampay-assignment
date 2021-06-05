@@ -11,15 +11,15 @@ class BaseConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-class DevelopmentConfig(BaseConfig):
-    CONFIG_NAME = "dev"
+class prodelopmentConfig(BaseConfig):
+    CONFIG_NAME = "prod"
     SECRET_KEY = os.getenv(
-        "DEV_SECRET_KEY", "This is a secret key and you should not try to guess it"
+        "prod_SECRET_KEY", "This is a secret key and you should not try to guess it"
     )
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:///{0}/app-dev.db".format(basedir)
+    SQLALCHEMY_DATABASE_URI = "sqlite:///{0}/app-prod.db".format(basedir)
 
 class ProductionConfig(BaseConfig):
     CONFIG_NAME = "prod"
@@ -31,7 +31,7 @@ class ProductionConfig(BaseConfig):
 
 
 EXPORT_CONFIGS: List[Type[BaseConfig]] = [
-    DevelopmentConfig,
+    prodelopmentConfig,
     ProductionConfig,
 ]
 config_by_name = {cfg.CONFIG_NAME: cfg for cfg in EXPORT_CONFIGS}

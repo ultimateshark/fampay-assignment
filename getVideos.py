@@ -10,17 +10,17 @@ from app import create_app
 from dateutil import parser as DateParser
 
 
-DEVELOPER_KEY = os.getenv("GOOGLE_DEVELOPER_KEY")
+prodELOPER_KEY ="AIzaSyDOOlIPYxK9bvq2Vj_ZvahDTWWmL-EvY5c"
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
-env = os.getenv("FLASK_ENV") or "dev"
+env = os.getenv("FLASK_ENV") or "prod"
 
 app = create_app(env)
 
 
 def youtube_search(options):
   youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
-    developerKey=DEVELOPER_KEY)
+    prodeloperKey=prodELOPER_KEY)
   search_response = youtube.search().list(
     q=options.q,
     part='id,snippet',
